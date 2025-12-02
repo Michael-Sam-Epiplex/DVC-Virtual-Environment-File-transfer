@@ -1,0 +1,18 @@
+train: D:\MichaelSam\Projects\YoloTraining\DVC_VE2\yolov7_dvc_project_root\dvcdata\raw\images\train
+val: D:\MichaelSam\Projects\YoloTraining\DVC_VE2\yolov7_dvc_project_root\dvcdata\raw\images\valid
+test: D:\MichaelSam\Projects\YoloTraining\DVC_VE2\yolov7_dvc_project_root\dvcdata\raw\images\test
+nc: 13
+names:
+- Spin box
+- Check box
+- Title bar - Close button only
+- Title bar - Minimize button only
+- Title bar- Restore button only
+- Link
+- Combo box
+- Label
+- Status bar
+- Push button
+- Radio button
+- Text box
+- Page Tab

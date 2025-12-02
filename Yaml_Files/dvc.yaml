@@ -1,0 +1,26 @@
+stages:
+  # Stage 1: Training the model
+  train:
+    cmd: python train_aux.py --weights yolov7.pt --cfg cfg/training/yolov7.yaml --data data_config.yaml --batch-size 4 --img-size 640 --epochs 10 --device cpu
+    deps:
+      - train_aux.py
+      - data_config.yaml
+      - yolov7.pt           # Pre-trained weights dependency
+      - cfg/training/yolov7.yaml
+    outs:
+      - runs/train/exp/cpu_run_V1.pt # The trained model output
+      - runs/train/exp/results.txt     # Training log file
+    
+  # Stage 2: Evaluating the trained model
+  evaluate:
+    cmd: python test.py --weights runs/train/exp/cpu_run_V1.pt --data data_config.yaml --img-size 640 --task test --device cpu
+    
+    deps:
+    - test.py               # Dependency 1: The test script itself
+    - data_config.yaml      # Dependency 2: The data configuration file
+    - runs/train/exp/cpu_run_V1.pt # Dependency 3: **Crucial:** Depends on the output of the 'train' stage
+
+    metrics:
+    # This tells DVC this file contains the results we want to track and display
+    - metrics.json:
+        cache: false        # We typically don't cache metrics files themselves, just their content value
